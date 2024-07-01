@@ -9,7 +9,7 @@
     <section>
         <h1>Yazılar</h1>
         <ul>
-            <li>
+            <!--<li>
                 <a href="#">Blog 1</a>
                 <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod mollitia provident reiciendis eligendi, atque dolores delectus iste libero repellendus voluptates animi nostrum officia quisquam hic obcaecati, cumque tenetur doloremque placeat.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod mollitia provident reiciendis eligendi, atque dolores delectus iste libero repellendus voluptates animi nostrum officia quisquam hic obcaecati, cumque tenetur doloremque placeatLorem ipsum dolor sit amet consectetur adipisicing elit. Quod mollitia provident reiciendis eligendi, atque dolores delectus iste libero repellendus voluptates animi nostrum officia quisquam hic obcaecati, cumque tenetur doloremque placeat<p>
             </li>
@@ -20,7 +20,13 @@
             <li>
                 <a href="#">Blog 3</a>
                 <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod mollitia provident reiciendis eligendi, atque dolores delectus iste libero repellendus voluptates animi nostrum officia quisquam hic obcaecati, cumque tenetur doloremque placeat.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod mollitia provident reiciendis eligendi, atque dolores delectus iste libero repellendus voluptates animi nostrum officia quisquam hic obcaecati, cumque tenetur doloremque placeatLorem ipsum dolor sit amet consectetur adipisicing elit. Quod mollitia provident reiciendis eligendi, atque dolores delectus iste libero repellendus voluptates animi nostrum officia quisquam hic obcaecati, cumque tenetur doloremque placeat<p>
-            </li>
+            </li>-->
+            <% blogs.forEach(blog=>{%>
+                <li>
+                    <a href="/blog/<%=blog._id%>"><%=blog.title%></a>
+                    <p><%=blog.short%><p>
+                </li>
+            <% }) %>
         </ul>
     </section>
 </body>
