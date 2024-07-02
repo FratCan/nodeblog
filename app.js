@@ -1,7 +1,8 @@
 const express=require('express')
 const morgan=require('morgan')
 const mongoose=require('mongoose')
-const Blog=require('./models/blogs');
+const adminRoutes=require('./routes/adminRoutes')
+const blogRoutes=require('./routes/blogRoutes')
 
 const app=express();
 
@@ -52,60 +53,30 @@ app.get('/single',(req,res)=>{
 */
 
 app.get('/',(req,res)=>{
+    /*
     Blog.find().sort({createdAt:-1}).then((result=>{
         res.render('index',{title:'Anasayfa',blogs:result})
     })).catch((err=>{
         console.log(err);
     }))
-})
-
-app.get('/blog/:id',(req,res)=>{ //: den sonra gelenler değişkendir.
-    const id=req.params.id
-    Blog.findById(id).then((result)=>{
-        res.render('blog',{title:'Detay',blog:result})
-    }).catch((err=>{
-        res.status(404).render('404',{title:'Sayfa Bulunamadı'})
-    }))
+        */
+       res.redirect('/blog')
 })
 
 
-app.get('/admin',(req,res)=>{
-    Blog.find().sort({createAt:1}).then((result=>{
-        res.render('admin',{title:'Admin',blogs:result})
-    })).catch((err=>{
-        console.log(err);
-    }))
-})
 
-app.get('/admin/add',(req,res)=>{
-    res.render('add',{title:'Yeni yazı'})
-})
-
-app.post('/admin/add',(req,res)=>{
-    const blog=new Blog(req.body)
-    blog.save()
-    .then((result=>{
-        res.redirect('/admin')
-    })).catch((err=>{
-        console.log(err);
-    }))
-})
-
-app.delete('/admin/delete/:id',(req,res)=>{
-    const id=req.params.id;
-    Blog.findByIdAndDelete(id)
-    .then((result)=>{
-        res.json({link:'/admin'})
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
-})
-
+/*
 app.use((req,res,next)=>{
     console.log(req.path);
     next();
 })
+*/
+
+app.use(adminRoutes);
+app.use('/blog',blogRoutes);
+
+
+
 
 app.get('/about',(req,res)=>{
     res.render('about',{title:'Hakkımızda'})

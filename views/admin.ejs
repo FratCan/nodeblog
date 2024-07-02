@@ -21,20 +21,23 @@
     <script>
 
 
-        const del=document.querySelector('a.del')
+        const del=document.querySelectorAll('a.del')
+        const delLinks=[].slice.call(del);
 
-        del.addEventListener('click',(e)=>{
-            const endpoint=`/admin/delete/${del.dataset.doc}`
+        delLinks.forEach(currentItem => {
+                currentItem.addEventListener('click',(e)=>{
+                    const endpoint=`/admin/delete/${currentItem.dataset.doc}`
 
-            fetch(endpoint,{
-                method:'DELETE'
-            })
-            .then((response)=>response.json())
-            .then((data)=>window.location.href=data.link)
-            .catch((err)=>{
-                console.log(err)
-            })
-        })
+                    fetch(endpoint,{
+                        method:'DELETE'
+                    })
+                    .then((response)=>response.json())
+                    .then((data)=>window.location.href=data.link)
+                    .catch((err)=>{
+                        console.log(err)
+                    })
+                })
+        });
     </script>
 </body>
 </html>
