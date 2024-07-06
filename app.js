@@ -3,6 +3,7 @@ const morgan=require('morgan')
 const mongoose=require('mongoose')
 const adminRoutes=require('./routes/adminRoutes')
 const blogRoutes=require('./routes/blogRoutes')
+const authRoutes=require('./routes/authRoutes')
 
 const app=express();
 
@@ -72,6 +73,7 @@ app.use((req,res,next)=>{
 })
 */
 
+app.use('/',authRoutes);
 app.use(adminRoutes);
 app.use('/blog',blogRoutes);
 
@@ -85,10 +87,11 @@ app.get('/about',(req,res)=>{
 app.get('/about-us',(req,res)=>{
     res.redirect('/about') // redirect ile yönlendirme yaptım about'a
 })
-
+/*
 app.get('/login',(req,res)=>{
     res.render('login',{title:'Login'})
 })
+    */
 //404 için ara katman yazıcaz hibir şartı karşılayamadığında bu çalışcak get post ların en altına yazmam lazım çünkü use ile yazdığım metodlar
 //senkron olarak çalışır.Arkasından gelen bloğu engeller.
 
