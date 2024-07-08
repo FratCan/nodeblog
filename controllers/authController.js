@@ -34,7 +34,10 @@ const signup_post=(req,res)=>{
 }
 
 
-const logout_get=(req,res)=>{}
+const logout_get=(req,res)=>{
+    res.cookie('jwt','',{maxAge:1}) //cookie kaldırılmış olunacak
+    res.redirect('/login');
+}
 
 module.exports={
     login_get,

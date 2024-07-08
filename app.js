@@ -4,6 +4,8 @@ const mongoose=require('mongoose')
 const adminRoutes=require('./routes/adminRoutes')
 const blogRoutes=require('./routes/blogRoutes')
 const authRoutes=require('./routes/authRoutes')
+const cookieParser=require('cookie-parser')
+const {requireAuth,checkUser}=require('./middlewares/authMiddleware')
 
 const app=express();
 
@@ -18,7 +20,7 @@ app.listen(3000)
 app.use(express.static('public'))
 app.use(express.urlencoded({extended:true}))
 app.use(morgan('dev'))
-
+app.use(cookieParser())
 /*
 app.get('/add',(req,res)=>{
     const blog=new Blog({
@@ -52,7 +54,7 @@ app.get('/single',(req,res)=>{
     }))
 })
 */
-
+app.get('*',checkUser) // * checkUser'ın tüm istekler üzerinde çalışmasını sağlar
 app.get('/',(req,res)=>{
     /*
     Blog.find().sort({createdAt:-1}).then((result=>{
@@ -74,8 +76,9 @@ app.use((req,res,next)=>{
 */
 
 app.use('/',authRoutes);
-app.use(adminRoutes);
 app.use('/blog',blogRoutes);
+app.use(requireAuth,adminRoutes);
+
 
 
 
